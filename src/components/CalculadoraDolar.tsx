@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default function CalculadoraDolar() {
+export default function CalculadoraDolar({ hideTitle = false, hideLink = false }: { hideTitle?: boolean, hideLink?: boolean }) {
+
   const [price, setPrice] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
@@ -56,11 +57,14 @@ export default function CalculadoraDolar() {
 
   return (
     <div className="w-full max-w-md font-sans">
-      <div className="text-center mb-8">
-        <h1 className="font-mono text-sm tracking-widest text-gray-500 uppercase mb-2">
-          Dólar BCV Venezuela
-        </h1>
-      </div>
+      {!hideTitle && (
+        <div className="text-center mb-8">
+          <h1 className="font-mono text-sm tracking-widest text-gray-500 uppercase mb-2">
+            Dólar BCV Venezuela
+          </h1>
+        </div>
+      )}
+
 
       <div className={`bg-zinc-900 border border-zinc-800 rounded-2xl p-8 text-center mb-6 relative overflow-hidden ${loading ? 'opacity-50' : ''}`}>
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
@@ -137,11 +141,14 @@ export default function CalculadoraDolar() {
         </button>
       </div>
 
-      <div className="text-center mt-6">
-        <Link href="/usdt" className="text-gray-500 hover:text-green-500 text-sm font-mono transition-colors">
-          → Ir a Calculadora USDT
-        </Link>
-      </div>
+      {!hideLink && (
+        <div className="text-center mt-6">
+          <Link href="/usdt" className="text-gray-500 hover:text-green-500 text-sm font-mono transition-colors">
+            → Ir a Calculadora USDT
+          </Link>
+        </div>
+      )}
+
     </div>
   );
 }
